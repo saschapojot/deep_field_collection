@@ -45,8 +45,9 @@ num_epochs =int(num_sample/batch_size*epoch_multiple)
 print(f"num_epochs={num_epochs}")
 
 decrease_over=400
-step_size = num_epochs // decrease_over
-gamma = (learning_rate_final/learning_rate) ** (1/decrease_over)
+step_of_decrease = num_epochs // decrease_over
+print(f"step_of_decrease={step_of_decrease}")
+gamma = (learning_rate_final/learning_rate) ** (1/step_of_decrease)
 
 print(f"gamma={gamma}")
 
