@@ -100,16 +100,16 @@ for epoch in range(num_epochs):
         optimizer.step()
         # Accumulate batch loss
         epoch_loss += loss.item() * X_batch.size(0)
-        # Average loss over total samples
-        average_loss = epoch_loss / len(dataset)
-        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}")
-        loss_file_content.append(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.8f}\n")
+    # Average loss over total samples
+    average_loss = epoch_loss / len(dataset)
+    print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}")
+    loss_file_content.append(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.8f}\n")
 
-        # Update the learning rate
-        scheduler.step()
-        # Optionally print the current learning rate
-        current_lr = scheduler.get_last_lr()[0]
-        print(f"Learning Rate after Epoch {epoch + 1}: {current_lr:.8e}")
+    # Update the learning rate
+    scheduler.step()
+    # Optionally print the current learning rate
+    current_lr = scheduler.get_last_lr()[0]
+    print(f"Learning Rate after Epoch {epoch + 1}: {current_lr:.8e}")
 
 # Save the loss log
 with open(out_model_Dir + f"/resnet_final_sum_training_log.txt", "w+") as fptr:
