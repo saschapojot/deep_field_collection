@@ -73,7 +73,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=
 # Reduce learning rate by a factor of gamma every step_size epochs
 scheduler = StepLR(optimizer, step_size=decrease_over, gamma=gamma)
 
-out_model_Dir=f"./out_model_resnet_final_sum_L{L}_K{K}_r{r}_layer{num_layers}/neuron/{num_neurons}/"
+out_model_Dir=f"./out_model_resnet_final_sum_L{L}_K{K}_r{r}_layer{num_layers}/neuron{num_neurons}/"
 
 Path(out_model_Dir).mkdir(exist_ok=True,parents=True)
 loss_file_content=[]
