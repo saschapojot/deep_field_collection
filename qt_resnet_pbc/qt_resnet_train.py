@@ -6,7 +6,11 @@ from torch.optim.lr_scheduler import StepLR
 from pathlib import Path
 from datetime import datetime
 
-
+argErrCode=3
+if (len(sys.argv)!=4):
+    print("wrong number of arguments")
+    print("example: python qt_resnet_train.py num_epochs C step_num_after_S1")
+    exit(argErrCode)
 num_epochs = int(sys.argv[1])
 learning_rate = 1e-3
 learning_rate_final=1e-4
