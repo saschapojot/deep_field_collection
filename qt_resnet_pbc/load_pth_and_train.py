@@ -39,7 +39,8 @@ print(f"step_of_decrease={step_of_decrease}")
 gamma = (learning_rate_final/learning_rate) ** (1/step_of_decrease)
 
 print(f"gamma={gamma}")
-gamma_last_epoch=3.54813389e-04
+# gamma_last_epoch=3.54813389e-04
+learning_rate_last_epoch=3.54813389e-04
 # Define device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("device="+str(device))
@@ -85,11 +86,11 @@ checkpoint = torch.load(checkpoint_path, map_location=device)
 model.load_state_dict(checkpoint['model_state_dict'])
 
 # Optimizer, scheduler, and loss function
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate_last_epoch, weight_decay=weight_decay)
 
 # Define a step learning rate scheduler
 # Reduce learning rate by a factor of gamma every step_size epochs
-scheduler = StepLR(optimizer, step_size=decrease_over, gamma=gamma_last_epoch)
+scheduler = StepLR(optimizer, step_size=decrease_over, gamma=gamma)
 
 criterion = nn.MSELoss()
 out_model_dir=f"./out_model_data/N{N}/C{C}/layer{step_num_after_S1+1}/"

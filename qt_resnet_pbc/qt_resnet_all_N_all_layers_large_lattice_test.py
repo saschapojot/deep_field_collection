@@ -49,7 +49,7 @@ N_vec=[10,15,20,25,30,35,40]
 layer_all=[1,2,3]
 C=15
 
-num_epochs =100#optimal is ?
+num_epochs =500#optimal is ?
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_suffix=40000
 for N in N_vec:

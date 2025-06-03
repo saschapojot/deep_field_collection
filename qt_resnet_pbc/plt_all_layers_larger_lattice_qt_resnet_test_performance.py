@@ -10,7 +10,7 @@ layer_vec=np.array([1,2,3])
 C=15
 N_vec=np.array([10,15,20,25,30,35,40])
 num_suffix=40000
-num_epochs = 100#optimal is ?
+num_epochs = 500#optimal is ?
 inDirRoot="./larger_lattice_test_performance/"
 
 def N_2_test_file(N,layer_num):
