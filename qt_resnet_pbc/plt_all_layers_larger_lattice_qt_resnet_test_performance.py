@@ -7,7 +7,7 @@ import matplotlib as mpl
 from pathlib import Path
 mpl.rcParams['axes.linewidth'] = 2.5  # Set for all plots
 layer_vec=np.array([1,2,3])
-C=15
+C=20
 N_vec=np.array([10,15,20,25,30,35,40])
 num_suffix=40000
 num_epochs = 500#optimal is ?

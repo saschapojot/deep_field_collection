@@ -47,7 +47,7 @@ N_for_model=10
 
 N_vec=[10,15,20,25,30,35,40]
 layer_all=[1,2,3]
-C=15
+C=20
 
 num_epochs =500#optimal is ?
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

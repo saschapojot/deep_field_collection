@@ -133,6 +133,11 @@ for epoch in range(num_epochs):
         }
         torch.save(checkpoint, save_path)
         print(f"Checkpoint saved at Epoch {epoch + 1} to {save_path}")
+        # Save the current loss logs at checkpoint intervals
+        log_path = out_model_dir + f"/training_log{save_suffix}.txt"
+        with open(log_path, "w") as f:
+            f.writelines(loss_file_content)
+        print(f"Loss log saved at Epoch {epoch + 1} to {log_path}")
 
 
 suffix_str=f"_over{decrease_over}_epoch{num_epochs}_num_samples{num_samples_in}"

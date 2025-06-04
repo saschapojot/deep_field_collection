@@ -25,7 +25,7 @@ chunks=[layer_C_pairs_vec[i:i+chunk_size] for i in range(0,len(layer_C_pairs_vec
 def contents_to_bash(layer,C,file_index):
     contents = [
         "#!/bin/bash\n",
-        "#SBATCH -n 1\n",
+        "#SBATCH -n 9\n",
         "#SBATCH -N 1\n",
         "#SBATCH -t 0-60:00\n",
         "#SBATCH -p lzicnormal\n",

@@ -54,7 +54,7 @@ Y_train_avg=np.mean(Y_train_array)
 abs_Y_train_avg=np.abs(Y_train_avg)
 
 print(f"Y_train_array.shape={Y_train_array.shape}")
-set_epoch=100
+set_epoch=300
 
 layer1=layer_vec[0]
 std_for_layer1=std_loss_all_one_epoch(set_epoch,layer1,N,C_vec)
