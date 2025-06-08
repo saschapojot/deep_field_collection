@@ -24,17 +24,17 @@ num_layers = int(sys.argv[3])#>=1
 growth_rate=int(sys.argv[4])
 B = list(combinations(range(L), r))
 K=len(B)
-
+N_samples=int(20000)
 data_inDir=f"./data_hs_L{L}_K_{K}_r{r}/"
 
-fileNameTrain=data_inDir+"/hs.train.pkl"
+fileNameTrain=data_inDir+f"/hs{N_samples}.train.pkl"
 batch_size = 1000
 learning_rate = 0.001
 learning_rate_final=1e-5
 
-epoch_multiple=100
+epoch_multiple=1000
 weight_decay = 1e-4  # L2 regularization strength
-
+save_interval=1000
 with open(fileNameTrain,"rb") as fptr:
     X_train, Y_train = pickle.load(fptr)
 
@@ -107,6 +107,23 @@ for epoch in range(num_epochs):
     # Optionally print the current learning rate
     current_lr = scheduler.get_last_lr()[0]
     print(f"Learning Rate after Epoch {epoch + 1}: {current_lr:.8e}")
+    if (epoch + 1) % save_interval == 0:
+        save_path = out_model_Dir + f"/hs_densenet_trained_epoch{epoch}.pth"
+        checkpoint = {
+            'epoch': epoch + 1,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'scheduler_state_dict': scheduler.state_dict(),
+            'loss': average_loss,
+        }
+        torch.save(checkpoint, save_path)
+        print(f"Checkpoint saved at Epoch {epoch + 1} to {save_path}")
+        # Save the current loss logs at checkpoint intervals
+        log_path = out_model_Dir + f"/training_log_epoch{epoch}.txt"
+        with open(log_path, "w") as f:
+            f.writelines(loss_file_content)
+        print(f"Loss log saved at Epoch {epoch + 1} to {log_path}")
+
 
 # Save the loss log
 with open(out_model_Dir + f"/growth_rate{growth_rate}_hs_densenet_training_log.txt", "w+") as fptr:

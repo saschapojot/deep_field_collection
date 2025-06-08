@@ -26,7 +26,7 @@ r = 3 # Number of spins in each interaction term
 seed=17
 np.random.seed(seed)
 
-N_samples=int(200000)
+N_samples=int(20000)
 B = list(combinations(range(L), r))
 print(f"len(B)={len(B)}")
 K=len(B)
@@ -88,11 +88,11 @@ X_train, Y_train, X_test, Y_test=generate_data(spin_configurations_samples,B,J_v
 outDir=f"./data_hs_L{L}_K_{K}_r{r}/"
 Path(outDir).mkdir(exist_ok=True,parents=True)
 #save training data
-fileNameTrain=outDir+"/hs.train.pkl"
+fileNameTrain=outDir+f"/hs{N_samples}.train.pkl"
 with open(fileNameTrain,"wb") as fptr:
     pickle.dump((X_train,Y_train),fptr)
 
-fileNameTest=outDir+"/hs.test.pkl"
+fileNameTest=outDir+f"/hs{N_samples}.test.pkl"
 with open(fileNameTest, "wb") as f:
     pickle.dump((X_test, Y_test), f)
 

@@ -11,10 +11,10 @@ r = 3 # Number of spins in each interaction term
 B = list(combinations(range(L), r))
 print(f"len(B)={len(B)}")
 K=len(B)
-
+N_samples=int(20000)
 inDir=f"./data_hs_L{L}_K_{K}_r{r}/"
 #save training data
-fileNameTrain=inDir+"/hs.train.pkl"
+fileNameTrain=inDir+f"/hs{N_samples}.train.pkl"
 with open(fileNameTrain,"rb") as fptr:
     X_train, Y_train = pickle.load(fptr)
 Y_train_mean=np.mean(Y_train)
