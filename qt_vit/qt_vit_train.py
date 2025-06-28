@@ -73,7 +73,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=
 # Reduce learning rate by a factor of gamma every step_size epochs
 scheduler = StepLR(optimizer, step_size=decrease_over, gamma=gamma)
 criterion = nn.MSELoss()
-out_model_dir=f"./out_model_data/N{N}/C{C}/layer{num_layers}/"
+out_model_dir=f"./out_model_data/N{N}/C{C}/layer{num_layers}/D{D}/"
 Path(out_model_dir).mkdir(exist_ok=True,parents=True)
 
 tStart=datetime.now()
@@ -105,7 +105,7 @@ for epoch in range(num_epochs):
     current_lr = scheduler.get_last_lr()[0]
     print(f"Learning Rate after Epoch {epoch + 1}: {current_lr:.8e}")
     if (epoch + 1) % save_interval == 0:
-        save_suffix = f"_over{decrease_over}_num_samples{num_samples_in}"
+        save_suffix = f"_over{decrease_over}_epoch{epoch + 1}_num_samples{num_samples_in}"
         save_path = out_model_dir + f"/qt_densenet_trained{save_suffix}.pth"
         checkpoint = {
             'epoch': epoch + 1,
