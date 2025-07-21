@@ -10,7 +10,7 @@ r = 3   # Number of spins in each interaction term
 B = list(combinations(range(L), r))
 K=len(B)
 name="hs_dnn"
-num_layers=2
+num_layers=3
 num_neurons_vec=[]
 num_neurons_dirs_vec=[]
 
