@@ -51,7 +51,7 @@ plt.ylabel("Absolute error",fontsize=14)
 plt.yscale("log")
 
 
-plt.title("densenet 2-4 layers, more neurons")
+plt.title("hs_resnet, more neurons")
 plt.gca().yaxis.set_label_position("right")  # Move label to the right
 plt.legend(loc="best")
 plt.savefig(inPath+f"/neuron_compare_epoch{epoch_num}.png")
