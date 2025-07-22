@@ -27,11 +27,11 @@ def contents_to_bash(num_layers,num_neurons,file_index):
         "#SBATCH -n 5\n",
         "#SBATCH -N 1\n",
         "#SBATCH -t 0-60:00\n",
-        "#SBATCH -p CLUSTER\n",
+        "#SBATCH -p lzicnormal\n",
         "#SBATCH --mem=20GB\n",
         f"#SBATCH -o out_hs_dnn_layer{num_layers}_neuron{num_neurons}.out\n",
         f"#SBATCH -e out_hs_dnn_layer{num_layers}_neuron{num_neurons}.err\n",
-        "cd /home/cywanag/data/hpc/cywanag/liuxi/Document/pyCode/deep_field_collection/hs_dnn\n",
+        "cd /public/home/hkust_jwliu_1/liuxi/Documents/pyCode/deep_field_collection/hs_dnn\n",
         f"python3 -u hs_dnn_train.py {L} {r} {num_layers} {num_neurons}\n",
         ]
     out_chunk = outPath + f"/chunk{file_index // chunk_size}/"
