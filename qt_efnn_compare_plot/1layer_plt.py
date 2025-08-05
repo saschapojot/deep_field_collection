@@ -3,14 +3,13 @@ import re
 import matplotlib.pyplot as plt
 import pickle
 import pandas as pd
-
-
+from itertools import combinations
+import matplotlib as mpl
 #this script plots test error for
-#qt_efnn
-#qt_densenet
-#qt_resnet
-#qt_dnn
-
+#qt_efnn, qt_dnn, qt_densenet , qt_resnet
+# Set the color explicitly to black
+mpl.rcParams['axes.edgecolor'] = 'black'
+mpl.rcParams['axes.linewidth'] = 2.5  # You already have this
 def N_2_test_file(baseDir,N,C,layer_num,num_epochs,num_suffix):
     in_file_dir=baseDir+f"./larger_lattice_test_performance/N{N}/C{C}/layer{layer_num}/"
     test_txt_file = in_file_dir + f"/test_epoch{num_epochs}_num_samples{num_suffix}.txt"
@@ -25,6 +24,7 @@ def N_2_test_data_pkl(baseDir,N,num_suffix):
     in_data_dir=baseDir+f"./larger_lattice_test_performance/N{N}/"
     pkl_test_file = in_data_dir + f"/db.test_num_samples{num_suffix}.pkl"
     return pkl_test_file
+
 
 pattern_std=r'std_loss=\s*([+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?)'
 pattern_num_params=r"num_params\s*=\s*(\d+)"
@@ -53,6 +53,7 @@ def file_2_num_params(test_fileName):
         print(f"{test_fileName}, format error")
         exit(12)
 C=15
+
 #load result from qt_efnn
 qt_efnn_layer_vec=np.array([0,1,2])
 qt_efnn_rate=0.9
@@ -118,6 +119,7 @@ for file in qt_efnn_file_vec_layer2:
 qt_efnn_std_loss_vec_layer2=np.array(qt_efnn_std_loss_vec_layer2)
 qt_efnn_relative_error_vec_layer2=(qt_efnn_std_loss_vec_layer2/abs_avg_Y_train_vec)
 print(f"qt_efnn_relative_error_vec_layer2={qt_efnn_relative_error_vec_layer2}")
+
 
 ###qt_densenet
 qt_densenet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_densenet_pbc/"
@@ -271,83 +273,84 @@ qt_dnn_std_loss_vec_layer3=np.array(qt_dnn_std_loss_vec_layer3)
 qt_dnn_relative_error_layer3=(qt_dnn_std_loss_vec_layer3/abs_avg_Y_train_vec)
 
 
-#plot qt_efnn
-plt.figure()
+#######
+width=6
+height=8
+textSize=33
+yTickSize=33
+xTickSize=33
+legend_fontsize=23
+marker_size1=100
+marker_size2=80
+lineWidth1=3
+lineWidth2=2
+tick_length=13
+tick_width=2
+minor_tick_length=7
+minor_tick_width=1
+
+#qt_efnn
+plt.figure(figsize=(width, height))
+plt.minorticks_on()
 
 #qt_efnn layer 1
-plt.scatter(qt_efnn_N_vec, qt_efnn_relative_error_layer0, color="green", label="EFNN, 1 layer")
-plt.plot(qt_efnn_N_vec, qt_efnn_relative_error_layer0, color="green", linestyle="dashed")
-#qt_efnn layer 2
-plt.scatter(qt_efnn_N_vec, qt_efnn_relative_error_layer1, color="darkgreen", label="EFNN, 2 layers")
-plt.plot(qt_efnn_N_vec, qt_efnn_relative_error_layer1, color="darkgreen", linestyle="dashed")
-#qt_efnn layer 3
-plt.scatter(qt_efnn_N_vec, qt_efnn_relative_error_vec_layer2, color="limegreen", label="EFNN, 3 layers")
-plt.plot(qt_efnn_N_vec, qt_efnn_relative_error_vec_layer2, color="limegreen", linestyle="dashed")
-
+line1 = plt.scatter(qt_efnn_N_vec, qt_efnn_relative_error_layer0, color="green", label="EFNN",s=marker_size2)
+plt.plot(qt_efnn_N_vec, qt_efnn_relative_error_layer0, color="green", linestyle="dashed",linewidth=lineWidth2)
 
 #qt_densenet layer 1
-plt.scatter(qt_densenet_N_vec, qt_densenet_relative_error_layer1,marker="s", color="red", label="DenseNet, 1 layer")
-plt.plot(qt_densenet_N_vec, qt_densenet_relative_error_layer1, color="red", linestyle="dotted")
-#qt_densenet layer 2
-plt.scatter(qt_densenet_N_vec, qt_densenet_relative_error_layer2,marker="s", color="darkred", label="DenseNet, 2 layers")
-plt.plot(qt_densenet_N_vec, qt_densenet_relative_error_layer2, color="darkred", linestyle="dotted")
-#qt_densenet layer 3
-plt.scatter(qt_densenet_N_vec, qt_densenet_relative_error_layer3,marker="s", color="indianred", label="DenseNet, 3 layers")
-plt.plot(qt_densenet_N_vec, qt_densenet_relative_error_layer3, color="indianred", linestyle="dotted")
+line4 = plt.scatter(qt_densenet_N_vec, qt_densenet_relative_error_layer1,marker="s", color="red", label="DenseNet",s=marker_size2)
+plt.plot(qt_densenet_N_vec, qt_densenet_relative_error_layer1, color="red", linestyle="dashed", linewidth=lineWidth2)
 
-#qt_resnet
 #qt_resnet layer 1
-plt.scatter(qt_resnet_N_vec, qt_resnet_relative_error_layer1,marker="^", color="purple", label="ResNet, 1 layer")
-plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer1, color="purple", linestyle="dashdot")
-#qt_resnet layer 2
-plt.scatter(qt_resnet_N_vec, qt_resnet_relative_error_layer2,marker="^", color="darkmagenta", label="ResNet, 2 layers")
-plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer2, color="darkmagenta", linestyle="dashdot")
-#qt_resnet layer 3
-plt.scatter(qt_resnet_N_vec, qt_resnet_relative_error_layer3,marker="^", color="mediumorchid", label="ResNet, 3 layers")
-plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer3, color="mediumorchid", linestyle="dashdot")
+line7 = plt.scatter(qt_resnet_N_vec, qt_resnet_relative_error_layer1,marker="^", color="purple", label="ResNet", s=marker_size2)
+plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer1, color="purple", linestyle="dashed", linewidth=lineWidth2)
 
 #qt_dnn layer1
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer1,marker="D", color="blue", label="DNN, 1 layer")
+line10 = plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer1,marker="D", color="blue", label="DNN", s=marker_size2)
 plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer1,color="blue", linestyle="dashed")
 
-#qt_dnn layer 2
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer2,marker="D", color="darkblue", label="DNN, 2 layers")
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer2,color="darkblue", linestyle="dashed")
 
-#qt_dnn layer 3
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer3,marker="D", color="cornflowerblue", label="DNN, 3 layers",)
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer3,color="cornflowerblue", linestyle="dashed")
-# Add labels and legend
-x_font_size=25
-y_font_size=25
-title_size=20
-plt.xlabel('Lattice Size (N)',fontsize=x_font_size)
-plt.ylabel('Relative Error', fontsize=y_font_size)
-plt.title('Quantum double exchange model',fontsize=title_size)
+
+plt.xlabel('Lattice Size (N)',fontsize=textSize)
+plt.ylabel('Relative Error',fontsize=textSize)
+# plt.title('Quantum double exchange model')
+plt.tick_params(axis='both', length=tick_length, width=tick_width)
+plt.tick_params(axis='y', which='minor', length=minor_tick_length, width=minor_tick_width)
+plt.xticks([10,20,30,40],labels=["10","20","30","40"],fontsize=xTickSize)
+plt.yticks(fontsize=yTickSize)
 plt.grid(True, which="both", linestyle="--", alpha=0.5)
-plt.legend(loc='best')
+# Remove legend from main plot
 plt.yscale('log')  # Consider log scale if ranges vary widely
-plt.xticks(fontsize=x_font_size)
-plt.yticks(fontsize=y_font_size)
+plt.xticks()
+plt.yticks(fontsize=yTickSize)
+plt.subplots_adjust(left=0.3, right=0.95, top=0.99, bottom=0.15)
+plt.savefig('1layer_qt_efnn_vs_all', dpi=300)
+plt.savefig('1layer_qt_efnn_vs_all.svg')
+plt.close()
+
+# Create separate legend figure
+fig_legend = plt.figure(figsize=(8, 3))
+ax_legend = fig_legend.add_subplot(111)
+ax_legend.axis('off')
+
+# Create legend
+handles = [line1, line4, line7, line10]
+labels = ["EFNN, 1 layer", "DenseNet, 1 layer", "ResNet, 1 layer", "DNN, 1 layer"]
+
+legend = ax_legend.legend(handles, labels, loc='center', ncol=4,
+                         fontsize=legend_fontsize-10,
+                         handlelength=0.8,
+                         handletextpad=0.2,
+                         columnspacing=0.3,
+                         borderpad=0.1,
+                         labelspacing=0.15,
+                         markerscale=0.6)
+
+# Make the legend more transparent
+legend.get_frame().set_alpha(0.7)  # Adjust alpha value (0=fully transparent, 1=opaque)
+
 plt.tight_layout()
-plt.savefig('quantum_nn_comparison.png', dpi=300)
-plt.savefig('quantum_nn_comparison.svg')
-# plt.show()
+plt.savefig("./1layer_qt_efnn_vs_all_legend.png", bbox_inches='tight', dpi=300)
+plt.savefig("./1layer_qt_efnn_vs_all_legend.svg", bbox_inches='tight')
+plt.close()
 
-
-#make csv
-# Add parameter counts to a separate DataFrame
-params_data = {
-    'Lattice_Size': qt_efnn_N_vec,
-    'EFNN_1layer': qt_efnn_num_params_vec_layer0,
-    'EFNN_2layers': qt_efnn_num_params_vec_layer1,
-    'EFNN_3layers': qt_efnn_num_params_vec_layer2,
-    'DenseNet_1layer': qt_densenet_num_params_vec_layer1,
-    'DenseNet_2layers': qt_densenet_num_params_vec_layer2,
-    'DenseNet_3layers': qt_densenet_num_params_vec_layer3,
-    'ResNet_1layer': qt_resnet_num_params_vec_layer1,
-    'ResNet_2layers': qt_resnet_num_params_vec_layer2,
-    'ResNet_3layers': qt_resnet_num_params_vec_layer3
-}
-params_df = pd.DataFrame(params_data)
-params_df.to_csv('quantum_nn_parameter_counts.csv', index=False)
