@@ -145,3 +145,73 @@ qt_dnn_layer2=qt_dnn_layer_vec[2]
 qt_dnn_std_loss_layer2_vec=std_loss_all_one_epoch(qt_dnn_baseDir,qt_dnn_num_epochs,qt_dnn_layer2,N,C_vec)
 qt_dnn_relative_err_layer2=qt_dnn_std_loss_layer2_vec/abs_Y_train_avg
 
+#######
+width=6
+height=8
+textSize=25
+yTickSize=33
+xTickSize=33
+legend_fontsize=23
+marker_size1=100
+marker_size2=80
+lineWidth1=3
+lineWidth2=2
+tick_length=13
+tick_width=2
+minor_tick_length=7
+minor_tick_width=1
+
+
+plt.figure(figsize=(width, height))
+plt.minorticks_on()
+#qt_efnn layer 1
+line1=plt.scatter(C_vec,qt_efnn_relative_err_layer0,color="green", label="EFNN",s=marker_size2)
+plt.plot(C_vec,qt_efnn_relative_err_layer0,color="green", linestyle="dashed",linewidth=lineWidth2)
+
+
+#qt_densenet layer 1
+line4=plt.scatter(C_vec,qt_densenet_relative_err_layer0,marker="s", color="red", label="DenseNet",s=marker_size2)
+plt.plot(C_vec,qt_densenet_relative_err_layer0, color="red", linestyle="dashed", linewidth=lineWidth2)
+
+
+#qt_resnet layer 1
+line7=plt.scatter(C_vec,qt_resnet_relative_err_layer0,marker="^", color="purple", label="ResNet", s=marker_size2)
+plt.plot(C_vec,qt_resnet_relative_err_layer0,color="purple", linestyle="dashed", linewidth=lineWidth2)
+
+#qt_dnn layer1
+line10 = plt.scatter(C_vec,qt_dnn_relative_err_layer0,marker="D", color="blue", label="DNN", s=marker_size2)
+
+plt.plot(C_vec,qt_dnn_relative_err_layer0,color="blue", linestyle="dashed",linewidth=lineWidth2)
+
+
+lin_mean_mse=0.9847254886017068
+lin_mean_std=np.sqrt(lin_mean_mse)
+lin_err_relative=lin_mean_std/abs_Y_train_avg
+plt.axhline(y=lin_err_relative, color="black", linestyle="--", label=f"Effective model",linewidth=lineWidth1)
+
+
+plt.xlabel('Channel Number (C)',fontsize=textSize)
+plt.ylabel('Relative Error',fontsize=textSize)
+
+plt.tick_params(axis='both', length=tick_length, width=tick_width)
+plt.tick_params(axis='y', which='minor', length=minor_tick_length, width=minor_tick_width)
+
+plt.xticks([10,15,20,25],labels=["10","15","20","25"],fontsize=xTickSize)
+plt.yticks(fontsize=yTickSize)
+plt.grid(True, which="both", linestyle="--", alpha=0.5)
+legend = plt.legend(loc="best", fontsize=legend_fontsize-10,
+          ncol=2,
+          handlelength=0.8,
+          handletextpad=0.2,
+          columnspacing=0.3,
+          borderpad=0.1,
+          labelspacing=0.15,
+          markerscale=0.6)
+
+plt.yscale('log')  # Consider log scale if ranges vary widely
+plt.xticks()
+plt.yticks(fontsize=yTickSize)
+plt.subplots_adjust(left=0.3, right=0.95, top=0.99, bottom=0.15)
+plt.savefig('1layer_qt_efnn_vs_all_C', dpi=300)
+plt.savefig('1layer_qt_efnn_vs_all_C.svg')
+plt.close()

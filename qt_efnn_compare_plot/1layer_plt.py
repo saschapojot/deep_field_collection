@@ -307,7 +307,7 @@ plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer1, color="purple", lines
 
 #qt_dnn layer1
 line10 = plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer1,marker="D", color="blue", label="DNN", s=marker_size2)
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer1,color="blue", linestyle="dashed")
+plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer1,color="blue", linestyle="dashed",linewidth=lineWidth2)
 
 
 
