@@ -276,7 +276,7 @@ qt_dnn_relative_error_layer3=(qt_dnn_std_loss_vec_layer3/abs_avg_Y_train_vec)
 #######
 width=6
 height=8
-textSize=33
+textSize=25
 yTickSize=33
 xTickSize=33
 legend_fontsize=23
@@ -340,7 +340,7 @@ plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer3,color="cornflowerblue", lines
 
 
 
-plt.xlabel('Lattice Size (N)',fontsize=textSize)
+plt.xlabel('$N$',fontsize=textSize)
 plt.ylabel('Relative Error',fontsize=textSize)
 # plt.title('Quantum double exchange model')
 plt.tick_params(axis='both', length=tick_length, width=tick_width)
@@ -350,9 +350,18 @@ plt.yticks(fontsize=yTickSize)
 plt.grid(True, which="both", linestyle="--", alpha=0.5)
 # Remove legend from main plot
 plt.yscale('log')  # Consider log scale if ranges vary widely
+
+# Format y-axis to show values multiplied by 10^3
+from matplotlib.ticker import FuncFormatter
+def format_func(value, tick_number):
+    return f'{value*1e3:.1f}'
+plt.gca().yaxis.set_major_formatter(FuncFormatter(format_func))
 plt.xticks()
 plt.yticks(fontsize=yTickSize)
-plt.subplots_adjust(left=0.3, right=0.95, top=0.99, bottom=0.15)
+# Add the scale text inside the plot area
+plt.text(0.02, 1.02, r'$\times 10^{-3}$', transform=plt.gca().transAxes,
+         fontsize=textSize, verticalalignment='bottom')
+plt.subplots_adjust(left=0.3, right=0.95, top=0.93, bottom=0.15)
 plt.savefig('qt_efnn_vs_all', dpi=300)
 plt.savefig('qt_efnn_vs_all.svg')
 plt.close()

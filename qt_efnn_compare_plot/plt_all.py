@@ -17,7 +17,7 @@ def N_2_test_file(baseDir,N,C,layer_num,num_epochs,num_suffix):
 
 def qt_efnn_N_2_test_file(baseDir,N,C,layer_num,num_epochs,num_suffix):
     in_file_dir = baseDir + f"./larger_lattice_test_performance/N{N}/C{C}/layer{layer_num}/"
-    test_txt_file = in_file_dir + f"/test_over{50}_rate0.9_epoch{num_epochs}_num_samples{num_suffix}.txt"
+    test_txt_file = in_file_dir + f"/test_epoch{num_epochs}_num_samples40000.txt"
     return test_txt_file
 
 def N_2_test_data_pkl(baseDir,N,num_suffix):
@@ -52,17 +52,17 @@ def file_2_num_params(test_fileName):
     else:
         print(f"{test_fileName}, format error")
         exit(12)
-C=15
-
+C=3
+set_epoch=675
 #load result from qt_efnn
-qt_efnn_layer_vec=np.array([0,1,2])
+qt_efnn_layer_vec=np.array([1,2,3])
 qt_efnn_rate=0.9
 qt_efnn_N_vec=np.array([10,15,20,25,30,35,40])
 
 qt_efnn_num_suffix=40000
-qt_efnn_num_epochs = 500
+qt_efnn_num_epochs = set_epoch
 
-qt_efnn_baseDir="/home/adada/Documents/pyCode/deep_field/pbc_bn_double_quantum/"
+qt_efnn_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_efnn/"
 
 pkl_file_vec=[N_2_test_data_pkl(qt_efnn_baseDir,N,qt_efnn_num_suffix) for N in qt_efnn_N_vec]
 abs_avg_Y_train_vec=[]
@@ -122,11 +122,11 @@ print(f"qt_efnn_relative_error_vec_layer2={qt_efnn_relative_error_vec_layer2}")
 
 
 ###qt_densenet
-qt_densenet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_densenet_pbc/"
-qt_densenet_layer_vec=np.array([2,3,4])
+qt_densenet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_densenet/"
+qt_densenet_layer_vec=np.array([1,2,3])
 qt_densenet_N_vec=np.array([10,15,20,25,30,35,40])
 qt_densenet_num_suffix=40000
-qt_densenet_num_epochs = 500
+qt_densenet_num_epochs = set_epoch
 
 #qt_densenet layer1
 qt_densenet_layer1=qt_densenet_layer_vec[0]
@@ -171,12 +171,12 @@ qt_densenet_std_loss_vec_layer3=np.array(qt_densenet_std_loss_vec_layer3)
 qt_densenet_relative_error_layer3=(qt_densenet_std_loss_vec_layer3/abs_avg_Y_train_vec)
 
 #qt_resnet
-qt_resnet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_resnet_pbc/"
+qt_resnet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_resnet/"
 
 qt_resnet_layer_vec=np.array([1,2,3])
 qt_resnet_N_vec=np.array([10,15,20,25,30,35,40])
 qt_resnet_num_suffix=40000
-qt_resnet_num_epochs = 500
+qt_resnet_num_epochs = set_epoch
 
 #qt_resnet layer 1
 qt_resnet_layer1=qt_resnet_layer_vec[0]
@@ -225,53 +225,53 @@ qt_dnn_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_dnn/"
 qt_dnn_layer_vec=np.array([1,2,3])
 qt_dnn_N_vec=np.array([10,15,20,25,30,35,40])
 qt_dnn_num_suffix=40000
-qt_dnn_num_epochs = 500
+qt_dnn_num_epochs = set_epoch
 
 #qt_dnn layer 1
-qt_dnn_layer1=qt_dnn_layer_vec[0]
-qt_dnn_file_vec_layer1=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer1,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
-qt_dnn_std_loss_vec_layer1=[]
-qt_dnn_num_params_vec_layer1=[]
-
-for file in qt_dnn_file_vec_layer1:
-    std_loss = file_2_std(file)
-    num_params = file_2_num_params(file)
-    qt_dnn_std_loss_vec_layer1.append(std_loss)
-    qt_dnn_num_params_vec_layer1.append(num_params)
-
-qt_dnn_std_loss_vec_layer1=np.array(qt_dnn_std_loss_vec_layer1)
-qt_dnn_relative_error_layer1=(qt_dnn_std_loss_vec_layer1/abs_avg_Y_train_vec)
-
-#qt_dnn layer 2
-qt_dnn_layer2=qt_dnn_layer_vec[1]
-qt_dnn_file_vec_layer2=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer2,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
-
-qt_dnn_std_loss_vec_layer2=[]
-qt_dnn_num_params_vec_layer2=[]
-for file in qt_dnn_file_vec_layer2:
-    std_loss = file_2_std(file)
-    num_params = file_2_num_params(file)
-    qt_dnn_std_loss_vec_layer2.append(std_loss)
-    qt_dnn_num_params_vec_layer2.append(num_params)
-
-qt_dnn_std_loss_vec_layer2=np.array(qt_dnn_std_loss_vec_layer2)
-qt_dnn_relative_error_layer2=(qt_dnn_std_loss_vec_layer2/abs_avg_Y_train_vec)
-
-
-#qt_dnn layer 3
-qt_dnn_layer3=qt_dnn_layer_vec[2]
-qt_dnn_file_vec_layer3=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer3,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
-qt_dnn_std_loss_vec_layer3=[]
-qt_dnn_num_params_vec_layer3=[]
-for file in qt_dnn_file_vec_layer3:
-    std_loss = file_2_std(file)
-    num_params = file_2_num_params(file)
-    qt_dnn_std_loss_vec_layer3.append(std_loss)
-    qt_dnn_num_params_vec_layer3.append(num_params)
-
-qt_dnn_std_loss_vec_layer3=np.array(qt_dnn_std_loss_vec_layer3)
-qt_dnn_relative_error_layer3=(qt_dnn_std_loss_vec_layer3/abs_avg_Y_train_vec)
-
+# qt_dnn_layer1=qt_dnn_layer_vec[0]
+# qt_dnn_file_vec_layer1=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer1,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
+# qt_dnn_std_loss_vec_layer1=[]
+# qt_dnn_num_params_vec_layer1=[]
+#
+# for file in qt_dnn_file_vec_layer1:
+#     std_loss = file_2_std(file)
+#     num_params = file_2_num_params(file)
+#     qt_dnn_std_loss_vec_layer1.append(std_loss)
+#     qt_dnn_num_params_vec_layer1.append(num_params)
+#
+# qt_dnn_std_loss_vec_layer1=np.array(qt_dnn_std_loss_vec_layer1)
+# qt_dnn_relative_error_layer1=(qt_dnn_std_loss_vec_layer1/abs_avg_Y_train_vec)
+#
+# #qt_dnn layer 2
+# qt_dnn_layer2=qt_dnn_layer_vec[1]
+# qt_dnn_file_vec_layer2=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer2,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
+#
+# qt_dnn_std_loss_vec_layer2=[]
+# qt_dnn_num_params_vec_layer2=[]
+# for file in qt_dnn_file_vec_layer2:
+#     std_loss = file_2_std(file)
+#     num_params = file_2_num_params(file)
+#     qt_dnn_std_loss_vec_layer2.append(std_loss)
+#     qt_dnn_num_params_vec_layer2.append(num_params)
+#
+# qt_dnn_std_loss_vec_layer2=np.array(qt_dnn_std_loss_vec_layer2)
+# qt_dnn_relative_error_layer2=(qt_dnn_std_loss_vec_layer2/abs_avg_Y_train_vec)
+#
+#
+# #qt_dnn layer 3
+# qt_dnn_layer3=qt_dnn_layer_vec[2]
+# qt_dnn_file_vec_layer3=[N_2_test_file(qt_dnn_baseDir,N,C,qt_dnn_layer3,qt_dnn_num_epochs,qt_dnn_num_suffix) for N in qt_dnn_N_vec]
+# qt_dnn_std_loss_vec_layer3=[]
+# qt_dnn_num_params_vec_layer3=[]
+# for file in qt_dnn_file_vec_layer3:
+#     std_loss = file_2_std(file)
+#     num_params = file_2_num_params(file)
+#     qt_dnn_std_loss_vec_layer3.append(std_loss)
+#     qt_dnn_num_params_vec_layer3.append(num_params)
+#
+# qt_dnn_std_loss_vec_layer3=np.array(qt_dnn_std_loss_vec_layer3)
+# qt_dnn_relative_error_layer3=(qt_dnn_std_loss_vec_layer3/abs_avg_Y_train_vec)
+#
 
 #######
 width=6
@@ -327,19 +327,19 @@ plt.scatter(qt_resnet_N_vec, qt_resnet_relative_error_layer3,marker="^", color="
 plt.plot(qt_resnet_N_vec, qt_resnet_relative_error_layer3, color="mediumorchid", linestyle="dashed", linewidth=lineWidth2)
 
 #qt_dnn layer1
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer1,marker="D", color="blue", label="DNN, 1 layer", s=marker_size2)
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer1,color="blue", linestyle="dashed")
+# plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer1,marker="D", color="blue", label="DNN, 1 layer", s=marker_size2)
+# plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer1,color="blue", linestyle="dashed")
+#
+# #qt_dnn layer 2
+# plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer2,marker="D", color="darkblue", label="DNN, 2 layers", s=marker_size2)
+# plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer2,color="darkblue", linestyle="dashed")
+#
+# #qt_dnn layer 3
+# plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer3,marker="D", color="cornflowerblue", label="DNN, 3 layers", s=marker_size2)
+# plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer3,color="cornflowerblue", linestyle="dashed")
 
-#qt_dnn layer 2
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer2,marker="D", color="darkblue", label="DNN, 2 layers", s=marker_size2)
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer2,color="darkblue", linestyle="dashed")
 
-#qt_dnn layer 3
-plt.scatter(qt_dnn_N_vec,qt_dnn_relative_error_layer3,marker="D", color="cornflowerblue", label="DNN, 3 layers", s=marker_size2)
-plt.plot(qt_dnn_N_vec,qt_dnn_relative_error_layer3,color="cornflowerblue", linestyle="dashed")
-
-
-plt.axhline(y=lin_err_relative, color="black", linestyle="--", label=f"Effective model",linewidth=lineWidth1)
+# plt.axhline(y=lin_err_relative, color="black", linestyle="--", label=f"Effective model",linewidth=lineWidth1)
 
 plt.xlabel('Lattice Size (N)',fontsize=textSize)
 plt.ylabel('Relative Error',fontsize=textSize)
@@ -365,8 +365,8 @@ plt.yscale('log')  # Consider log scale if ranges vary widely
 plt.xticks()
 plt.yticks(fontsize=yTickSize)
 plt.subplots_adjust(left=0.3, right=0.95, top=0.99, bottom=0.15)
-plt.savefig('qt_efnn_vs_all', dpi=300)
-plt.savefig('qt_efnn_vs_all.svg')
+plt.savefig(f'qt_efnn_vs_all_C{C}_epoch{set_epoch}', dpi=300)
+plt.savefig(f'qt_efnn_vs_all_C{C}_epoch{set_epoch}')
 
 #make csv
 # Add parameter counts to a separate DataFrame
@@ -381,9 +381,9 @@ params_data = {
     'ResNet_1layer': qt_resnet_num_params_vec_layer1,
     'ResNet_2layers': qt_resnet_num_params_vec_layer2,
     'ResNet_3layers': qt_resnet_num_params_vec_layer3,
-    "DNN_1layer":qt_dnn_num_params_vec_layer1,
-    "DNN_2layers": qt_dnn_num_params_vec_layer2,
-    "DNN_3layers": qt_dnn_num_params_vec_layer3,
+    # "DNN_1layer":qt_dnn_num_params_vec_layer1,
+    # "DNN_2layers": qt_dnn_num_params_vec_layer2,
+    # "DNN_3layers": qt_dnn_num_params_vec_layer3,
 }
 params_df = pd.DataFrame(params_data)
-params_df.to_csv('quantum_nn_parameter_counts.csv', index=False)
+params_df.to_csv(f'quantum_nn_parameter_counts_C{C}.csv', index=False)

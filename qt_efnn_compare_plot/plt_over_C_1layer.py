@@ -8,7 +8,7 @@ mpl.rcParams['axes.edgecolor'] = 'black'
 mpl.rcParams['axes.linewidth'] = 2.5  # You already have this
 #this script plots performance when changing C
 #for qt_efnn, qt_densenet, qt_resnet, qt_dnn
-
+# 1 layer
 C_vec=[10,15,20,25]
 N=10#plots for N=10
 epoch_pattern=r"num_epochs=(\d+)"
