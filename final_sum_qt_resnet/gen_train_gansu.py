@@ -8,7 +8,7 @@ import os
 outPath="./bashFiles_fs_qt_resnet_pbc/"
 if os.path.isdir(outPath):
     shutil.rmtree(outPath)
-num_epochs=1500
+num_epochs=1000
 step_num_after_S1_vec=[0,1,2]
 
 C_vec=[1,3,5,7,9]
