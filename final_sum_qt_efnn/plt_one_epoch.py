@@ -10,7 +10,7 @@ from pathlib import Path
 
 N=10
 mpl.rcParams['axes.linewidth'] = 2.5  # Set for all plots
-C_vec=[5,10]
+C_vec=[1,3,5,7,9]
 layer_vec=[1,2,3]
 epoch_pattern=r"num_epochs=(\d+)"
 std_pattern=r"std_loss=([+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?)"
@@ -52,7 +52,7 @@ Y_train_array = np.array(Y_train)  # Shape: (num_samples,)
 Y_train_avg=np.mean(Y_train_array)
 abs_Y_train_avg=np.abs(Y_train_avg)
 print(f"Y_train_array.shape={Y_train_array.shape}")
-set_epoch=700
+set_epoch=1000
 
 layer1=layer_vec[0]
 std_for_layer1=std_loss_all_one_epoch(set_epoch,layer1,N,C_vec)
@@ -104,7 +104,7 @@ lin_mean_mse=0.9847254886017068
 lin_mean_std=np.sqrt(lin_mean_mse)
 lin_err_relative=lin_mean_std/abs_Y_train_avg
 
-plt.axhline(y=lin_err_relative, color="black", linestyle="--", label=f"Effective model",linewidth=lineWidth1)
+# plt.axhline(y=lin_err_relative, color="black", linestyle="--", label=f"Effective model",linewidth=lineWidth1)
 plt.xlabel("$C$",fontsize=textSize)
 plt.ylabel("Relative error",fontsize=textSize)
 

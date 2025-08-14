@@ -11,7 +11,7 @@ if os.path.isdir(outPath):
 num_epochs=1000
 step_num_after_S1_vec=[0,1,2]
 
-C_vec=[5,10,15,20,25]
+C_vec=[1,3,5,7,9]
 
 layer_C_pairs_vec=[[layer,C] for layer in step_num_after_S1_vec for C in C_vec]
 chunk_size = 100
