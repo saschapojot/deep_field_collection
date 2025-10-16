@@ -12,7 +12,7 @@ r = 3   # Number of spins in each interaction term
 B = list(combinations(range(L), r))
 K=len(B)
 inPath="./compare_layer_neuron_num/"
-epoch_num=15999
+epoch_num=5999
 layer_num_vec=[1,2,3]
 
 inCsvName_layer0=inPath+f"/layer{layer_num_vec[0]}_epoch{epoch_num}_std_loss.csv"
@@ -51,7 +51,7 @@ plt.ylabel("Absolute error",fontsize=14)
 plt.yscale("log")
 
 
-plt.title("densenet 2-4 layers, more neurons")
+plt.title("efnn 1-3 layers, more neurons")
 plt.gca().yaxis.set_label_position("right")  # Move label to the right
 plt.legend(loc="best")
 plt.savefig(inPath+f"/neuron_compare_epoch{epoch_num}.png")

@@ -1,11 +1,10 @@
-#this is the dense part, for energy fitting
+#this is the efnn part, for energy fitting
 #no normalization
 #classical Hamiltonian
-#the growth rate of layer number is controlled
-#heisemnberg
+#heisenberg
 #############################
 use the neural network structure in hs_efnn_structure.py
-1. python hs_densenet_train.py L r  num_layers num_neurons
+1. python hs_efnn_train.py L r  num_layers num_neurons
 2. change num_layers, num_neurons in plt_log.py, then
     python plt_log.py
 3. change num_layers, epoch_num, in hs_efnn_test.py, then

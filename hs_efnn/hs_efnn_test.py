@@ -10,7 +10,7 @@ L = 15  # Number of spins
 r = 3   # Number of spins in each interaction term
 B = list(combinations(range(L), r))
 K=len(B)
-num_layers=1
+num_layers=3
 epoch_num=15999
 num_neurons_dirs_vec=[]
 num_neurons_vals_vec=[]
@@ -61,6 +61,8 @@ def load_one_model_performance(num_neurons,epoch_num,dir):
     # Move the model to the appropriate device
     model = model.to(device)
     # Set the model to evaluation mode
+    param_num = sum(p.numel() for p in model.parameters())
+    print(f"num_params={param_num}")
     model.eval()
     print("Model successfully loaded and ready for evaluation.")
     errors = []
@@ -76,7 +78,7 @@ def load_one_model_performance(num_neurons,epoch_num,dir):
     num_params = count_parameters(model)
     print(f"Test Loss: {test_loss:.4f}, std loss: {std_loss:.4f}, num_params: {num_params}")
     outTxtFile = dir + f"/test_epoch{epoch_num}.txt"
-    out_content = f"MSE_loss={format_using_decimal(test_loss)}, std_loss={format_using_decimal(std_loss)}\n"
+    out_content = f"MSE_loss={format_using_decimal(test_loss)}, std_loss={format_using_decimal(std_loss)}, num_params={num_params}\n"
     with open(outTxtFile, "w+") as fptr:
         fptr.write(out_content)
     print(f"processed {dir}")
