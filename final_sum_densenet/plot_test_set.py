@@ -19,8 +19,8 @@ B = list(combinations(range(L), r))
 K=len(B)
 data_inDir=f"./data_inf_range_model_L{L}_K_{K}_r{r}/"
 
-fileNameTrain=data_inDir+"/inf_range.test.pkl"
-with open(fileNameTrain,"rb") as fptr:
+fileNameTest=data_inDir+"/inf_range.test.pkl"
+with open(fileNameTest,"rb") as fptr:
     X_test, Y_test = pickle.load(fptr)
 
 print(f"Data loaded. Y_test length: {len(Y_test)}")
