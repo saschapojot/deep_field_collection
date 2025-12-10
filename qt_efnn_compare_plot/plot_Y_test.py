@@ -45,7 +45,7 @@ fig_size=10
 plt.figure(figsize=(fig_size, fig_size))
 ax = plt.gca()
 
-plt.hist(Y_test, bins=50, color='blue', alpha=0.7, edgecolor='black', label='Data Distribution')
+plt.hist(Y_test, bins=50, color='blue', alpha=0.7, edgecolor='black', label='Y_test')
 
 plt.axvline(y_mean, color='red', linestyle='dashed', linewidth=2, label=f'Mean: {y_mean:.4f}')
 plt.xlabel('Y_test',fontsize=textSize)
