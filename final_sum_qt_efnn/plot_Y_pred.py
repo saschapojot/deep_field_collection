@@ -37,7 +37,7 @@ data_min = np.min(Y_pred)
 data_max = np.max(Y_pred)
 
 # 2. Generate 5 evenly spaced numbers between min and max
-custom_ticks = np.linspace(data_min, data_max, 5)
+custom_ticks = np.linspace(data_min, data_max, 4)
 
 # 3. Round them to the nearest integer and convert to integer type
 custom_ticks = np.round(custom_ticks).astype(int)
@@ -45,11 +45,10 @@ custom_ticks = np.round(custom_ticks).astype(int)
 # 4. Ensure values are unique (in case data range is very small, e.g., 0 to 2)
 custom_ticks = np.unique(custom_ticks)
 # --- Modification End ---
-
-textSize=30
-yTickSize=35
-xTickSize=35
-legend_fontsize=25
+textSize=40
+yTickSize=40
+xTickSize=40
+legend_fontsize=30
 fig_size=10
 plt.figure(figsize=(fig_size, fig_size))
 ax = plt.gca()
@@ -59,7 +58,7 @@ plt.axvline(y_mean, color='magenta', linestyle='dashed', linewidth=2, label=f'Me
 plt.xlabel('Y_pred',fontsize=textSize)
 plt.ylabel('Number',fontsize=textSize)
 plt.grid(True, linestyle='--', alpha=0.5)
-plt.legend(loc="best", fontsize=legend_fontsize)
+plt.legend(loc="best", fontsize=legend_fontsize, framealpha=0.5)
 
 
 # --- Modification Start ---
