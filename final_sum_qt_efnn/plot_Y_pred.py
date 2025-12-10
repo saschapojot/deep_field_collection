@@ -58,7 +58,7 @@ plt.axvline(y_mean, color='magenta', linestyle='dashed', linewidth=2, label=f'Me
 plt.xlabel('Y_pred',fontsize=textSize)
 plt.ylabel('Number',fontsize=textSize)
 plt.grid(True, linestyle='--', alpha=0.5)
-plt.legend(loc="best", fontsize=legend_fontsize, framealpha=0.5)
+plt.legend(loc="best", fontsize=legend_fontsize, framealpha=0.5, markerfirst=False)
 
 
 # --- Modification Start ---
