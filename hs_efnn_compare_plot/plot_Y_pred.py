@@ -7,15 +7,18 @@ from matplotlib.ticker import MaxNLocator  # Import MaxNLocator
 import pickle
 from pathlib import Path
 
-#this script plots Y_pred for efnn, 3-spin infinite-range model
+#this script plots Y_pred for efnn, Heisenberg system
+
 L=15
 K=455
 r=3
 layer_num=3
 neuron_num=150
+epoch_num=15999
+in_data_dir=f"./hs_efnn_data/out_model_hs_efnn_L{L}_K{K}_r{r}_layer{layer_num}/neuron{neuron_num}/"
 
-in_data_root=f"./efnn_data/out_model_L{L}_K{K}_r{r}/layer{layer_num}/neurons{neuron_num}/"
-in_Y_pred_file=in_data_root+f"/inference_data_L{L}_K{K}_r{r}_layer{layer_num}_neurons{neuron_num}.pkl"
+in_Y_pred_file=in_data_dir+f"/inference_data_epoch{epoch_num}.pkl"
+
 with open(in_Y_pred_file,"rb") as fptr:
     X_test,Y_pred=pickle.load(fptr)
 
@@ -23,7 +26,6 @@ print(f"Data loaded. Y_pred length: {len(Y_pred)}")
 # Calculate the average value
 y_mean = np.mean(Y_pred)
 print(f"Average Y_pred: {y_mean}")
-
 # --- Modification Start: Calculate Custom Ticks ---
 # 1. Find the min and max of the data to define the range
 data_min = np.min(Y_pred)
@@ -70,6 +72,6 @@ for spine in ax.spines.values():
 plt.tight_layout()
 out_dir=f"./Y_pred_figs/"
 Path(out_dir).mkdir(exist_ok=True,parents=True)
-plt.savefig(out_dir+f"/Y_pred_L{L}_K_{K}_r{r}_layer{layer_num}.png")
-plt.savefig(out_dir+f"/Y_pred_L{L}_K_{K}_r{r}_layer{layer_num}.svg")
+plt.savefig(out_dir+f"/Y_pred_L{L}_K_{K}_r{r}_layer{layer_num}_epoch{epoch_num}.png")
+plt.savefig(out_dir+f"/Y_pred_L{L}_K_{K}_r{r}_layer{layer_num}_epoch{epoch_num}.svg")
 plt.close()
