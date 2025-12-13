@@ -179,10 +179,27 @@ J=16*t
 mu=-8.3*t
 T=0.1*t
 I_N2=np.eye(N**2)
-gm_mat_tmp=assemble_input_data(N,T0_mat,T1_mat,T2_mat,T3_mat,t,J,mu,I_N2)
-tStart=datetime.now()
-E_tmp=gen_one_data(gm_mat_tmp,T)
-tEnd=datetime.now()
+# gm_mat_tmp=assemble_input_data(N,T0_mat,T1_mat,T2_mat,T3_mat,t,J,mu,I_N2)
+# tStart=datetime.now()
+# E_tmp=gen_one_data(gm_mat_tmp,T)
+# tEnd=datetime.now()
+#
+# print(f"N={N}, generate E_MC time: {tEnd-tStart}")
 
-print(f"N={N}, generate E_MC time: {tEnd-tStart}")
+num_samples = 17
+total_duration = 0
 
+for i in range(num_samples):
+    # 1. Generate Matrix (New random configuration)
+    gm_mat_tmp = assemble_input_data(N, T0_mat, T1_mat, T2_mat, T3_mat, t, J, mu, I_N2)
+    # 2. Compute Energy (ED)
+    loop_start = datetime.now()
+    E_tmp = gen_one_data(gm_mat_tmp, T)
+    # End Timer
+    loop_end = datetime.now()
+    duration = (loop_end - loop_start).total_seconds()
+    total_duration += duration
+    print(f"Sample {i + 1}: E = {E_tmp:.4f} | Time: {duration:.4e} seconds")
+
+print("-" * 40)
+print(f"Average Time per Sample: {total_duration / num_samples:.4e} seconds")
