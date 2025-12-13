@@ -57,3 +57,15 @@ plt.savefig("efnn_ed_time.svg")
 plt.close()
 
 
+
+log_ed_time = np.log(ed_time_vec)
+
+# Perform linear regression (degree 1 polynomial)
+slope, intercept = np.polyfit(np.log(N_vec), log_ed_time, 1)
+
+
+print(f"Regression Results (Power Law Fit):")
+print(f"Slope (Exponent p): {slope:.4f}")
+print(f"Intercept: {intercept:.4f}")
+print(f"Inferred Complexity: O(N^{slope:.2f})")
+
