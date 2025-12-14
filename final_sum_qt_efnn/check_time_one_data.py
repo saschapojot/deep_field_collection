@@ -7,7 +7,7 @@ import pickle
 import random
 from datetime import datetime
 #this script checks the time for computing 1 data point after training
-
+#using EFNN
 # Evaluation Function
 
 # ==========================================
