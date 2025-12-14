@@ -23,16 +23,25 @@ legend_fontsize=30
 marker_size2=80
 fig_size=10
 lineWidth2=2
+plot_marker_size=10
 plt.figure(figsize=(fig_size, fig_size))
 ax = plt.gca()
 
-#plot efnn time
-plt.scatter(N_vec,efnn_time_vec,color="limegreen", label="EFNN",s=marker_size2)
-plt.plot(N_vec,efnn_time_vec,color="limegreen", linestyle="dashed",linewidth=lineWidth2)
+# --- EFNN PLOT ---
 
-#plot ed time
-plt.scatter(N_vec,ed_time_vec,color="red",label="ED",s=marker_size2,marker="s")
-plt.plot(N_vec,ed_time_vec,color="red",linestyle="dashed",linewidth=lineWidth2)
+# plt.scatter(N_vec, efnn_time_vec, color="limegreen", s=marker_size2)
+
+plt.plot(N_vec, efnn_time_vec, color="limegreen", linestyle="dashed",
+         linewidth=lineWidth2, label="EFNN", marker="o", markersize=plot_marker_size)
+
+# --- ED PLOT ---
+
+# plt.scatter(N_vec, ed_time_vec, color="red", s=marker_size2, marker="s")
+
+plt.plot(N_vec, ed_time_vec, color="red", linestyle="dashed",
+         linewidth=lineWidth2, label="ED", marker="s", markersize=plot_marker_size)
+
+
 plt.yscale('log')  # Consider log scale if ranges vary widely
 plt.xticks(fontsize=xTickSize)
 plt.yticks(fontsize=yTickSize)
@@ -40,7 +49,9 @@ plt.xlabel("$N$",fontsize=textSize)
 plt.ylabel("time/s",fontsize=textSize)
 
 plt.grid(True, linestyle='--', alpha=0.5)
-plt.legend(loc="best", fontsize=legend_fontsize, framealpha=0.5, markerfirst=False)
+plt.legend(loc="best", fontsize=legend_fontsize, framealpha=0.5, markerfirst=True)
+
+
 
 # --- Modification Start: Thicken the Box/Spines ---
 spine_thickness = 3  # Increase this value for a thicker box
