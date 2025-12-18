@@ -6,7 +6,7 @@ import pandas as pd
 from itertools import combinations
 import matplotlib as mpl
 #this script plots test error for
-#hs_efnn, hs_attn, hs_densenet , hs_longer_attn, hs_resnet
+#hs_efnn, hs_dnn, hs_densenet , hs_resnet
 
 L = 15  # Number of spins
 r = 3   # Number of spins in each interaction term
@@ -59,11 +59,11 @@ hs_efnn_num_parameters_vec_layer2=np.array(hs_efnn_in_df_layer2["num_params"])
 
 
 
-#load result from hs_densenet
-hs_densenet_inPath="/home/adada/Documents/pyCode/deep_field_collection/hs_densenet/compare_layer_neuron_num/"
+#load result from final sum hs_densenet
+hs_densenet_inPath="/home/adada/Documents/pyCode/deep_field_collection/final_sum_hs_densenet/compare_layer_neuron_num/"
 
 hs_densenet_epoch_num=15999
-hs_densenet_layer_num_vec=[2,3,4]
+hs_densenet_layer_num_vec=[1,2,3]
 
 hs_densenet_inCsvName_layer0=hs_densenet_inPath+f"/layer{hs_densenet_layer_num_vec[0]}_epoch{hs_densenet_epoch_num}_std_loss.csv"
 hs_densenet_inCsvName_layer1=hs_densenet_inPath+f"/layer{hs_densenet_layer_num_vec[1]}_epoch{hs_densenet_epoch_num}_std_loss.csv"
@@ -76,21 +76,21 @@ hs_densenet_in_df_layer1=pd.read_csv(hs_densenet_inCsvName_layer1)
 hs_densenet_in_df_layer2=pd.read_csv(hs_densenet_inCsvName_layer2)
 
 #hs_densenet , layer 1
-hs_densenet_growth_rate_vec_layer0=np.array(hs_densenet_in_df_layer0["growth_rate"])
+hs_densenet_growth_rate_vec_layer0=np.array(hs_densenet_in_df_layer0["neuron_num"])
 hs_densenet_std_loss_vec_layer0=np.array(hs_densenet_in_df_layer0["std_loss"])
 hs_densenet_num_parameters_vec_layer0=np.array(hs_densenet_in_df_layer0["num_params"])
 #hs_densenet , layer 2
-hs_densenet_growth_rate_vec_layer1=np.array(hs_densenet_in_df_layer1["growth_rate"])
+hs_densenet_growth_rate_vec_layer1=np.array(hs_densenet_in_df_layer1["neuron_num"])
 hs_densenet_std_loss_vec_layer1=np.array(hs_densenet_in_df_layer1["std_loss"])
 hs_densenet_num_parameters_vec_layer1=np.array(hs_densenet_in_df_layer1["num_params"])
 #hs_densenet , layer 3
-hs_densenet_growth_rate_vec_layer2=np.array(hs_densenet_in_df_layer2["growth_rate"])
+hs_densenet_growth_rate_vec_layer2=np.array(hs_densenet_in_df_layer2["neuron_num"])
 hs_densenet_std_loss_vec_layer2=np.array(hs_densenet_in_df_layer2["std_loss"])
 hs_densenet_num_parameters_vec_layer2=np.array(hs_densenet_in_df_layer2["num_params"])
 
-#load result from hs_resnet
+#load result from final sum hs_resnet
 #hs_resnet , layer 1
-hs_resnet_inPath="/home/adada/Documents/pyCode/deep_field_collection/hs_resnet/compare_layer_neuron_num/"
+hs_resnet_inPath="/home/adada/Documents/pyCode/deep_field_collection/final_sum_hs_resnet/compare_layer_neuron_num/"
 
 hs_resnet_epoch_num=15999
 hs_resnet_layer_num_vec=[1,2,3]
@@ -105,21 +105,21 @@ hs_resnet_in_df_layer1=pd.read_csv(hs_resnet_inCsvName_layer1)
 hs_resnet_in_df_layer2=pd.read_csv(hs_resnet_inCsvName_layer2)
 
 #hs_resnet , layer 1
-hs_resnet_num_neurons_vec_layer0=np.array(hs_resnet_in_df_layer0["num_neurons"])
+hs_resnet_num_neurons_vec_layer0=np.array(hs_resnet_in_df_layer0["neuron_num"])
 hs_resnet_std_loss_vec_layer0=np.array(hs_resnet_in_df_layer0["std_loss"])
 hs_resnet_num_parameters_vec_layer0=np.array(hs_resnet_in_df_layer0["num_params"])
 #hs_resnet , layer 2
-hs_resnet_num_neurons_vec_layer1=np.array(hs_resnet_in_df_layer1["num_neurons"])
+hs_resnet_num_neurons_vec_layer1=np.array(hs_resnet_in_df_layer1["neuron_num"])
 hs_resnet_std_loss_vec_layer1=np.array(hs_resnet_in_df_layer1["std_loss"])
 hs_resnet_num_parameters_vec_layer1=np.array(hs_resnet_in_df_layer1["num_params"])
 #hs_resnet , layer 3
-hs_resnet_num_neurons_vec_layer2=np.array(hs_resnet_in_df_layer2["num_neurons"])
+hs_resnet_num_neurons_vec_layer2=np.array(hs_resnet_in_df_layer2["neuron_num"])
 hs_resnet_std_loss_vec_layer2=np.array(hs_resnet_in_df_layer2["std_loss"])
 hs_resnet_num_parameters_vec_layer2=np.array(hs_resnet_in_df_layer2["num_params"])
 
 #load result from hs_dnn
 
-hs_dnn_inPath=f"/home/adada/Documents/pyCode/deep_field_collection/hs_dnn/compare_layer_neuron_num/"
+hs_dnn_inPath=f"/home/adada/Documents/pyCode/deep_field_collection/final_sum_hs_dnn/compare_layer_neuron_num/"
 hs_dnn_epoch_num=15999
 hs_dnn_layer_num_vec=[1,2,3]
 
@@ -149,7 +149,7 @@ hs_dnn_num_parameters_vec_layer2=np.array(hs_dnn_in_df_layer2["num_params"])
 #######
 width=6
 height=8
-textSize=33
+textSize=25
 yTickSize=33
 xTickSize=33
 legend_fontsize=23
@@ -173,7 +173,7 @@ plt.plot(hs_efnn_num_neurons_vec_layer0,hs_efnn_std_loss_vec_layer0,color="green
 plt.scatter(hs_efnn_num_neurons_vec_layer1, hs_efnn_std_loss_vec_layer1, color="darkgreen", label="EFNN, 2 layers",s=marker_size2)
 plt.plot(hs_efnn_num_neurons_vec_layer1, hs_efnn_std_loss_vec_layer1, color="darkgreen", linestyle="dashed", linewidth=lineWidth2)
 
-# hs_efnn , 3 layer2
+# hs_efnn , 3 layers
 plt.scatter(hs_efnn_num_neurons_vec_layer2, hs_efnn_std_loss_vec_layer2, color="limegreen", label="EFNN, 3 layers",s=marker_size2)
 plt.plot(hs_efnn_num_neurons_vec_layer2, hs_efnn_std_loss_vec_layer2, color="limegreen", linestyle="dashed", linewidth=lineWidth2)
 
@@ -194,36 +194,47 @@ plt.plot(hs_densenet_growth_rate_vec_layer2, hs_densenet_std_loss_vec_layer2, co
 #resnet
 
 # hs_resnet plots
-plt.scatter(hs_resnet_num_neurons_vec_layer0, hs_resnet_std_loss_vec_layer0,marker="^", color="purple", label="ResNet, 1 layer",edgecolors='black', s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer0, hs_resnet_std_loss_vec_layer0,marker="^", color="purple", label="ResNet, 1 layer", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer0, hs_resnet_std_loss_vec_layer0, color="purple", linestyle="dashed", linewidth=lineWidth2)
 
-plt.scatter(hs_resnet_num_neurons_vec_layer1, hs_resnet_std_loss_vec_layer1,marker="^", color="darkmagenta", label="ResNet, 2 layers",edgecolors='black', s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer1, hs_resnet_std_loss_vec_layer1,marker="^", color="darkmagenta", label="ResNet, 2 layers", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer1, hs_resnet_std_loss_vec_layer1, color="darkmagenta", linestyle="dashed", linewidth=lineWidth2)
 
-plt.scatter(hs_resnet_num_neurons_vec_layer2, hs_resnet_std_loss_vec_layer2,marker="^", color="mediumorchid", label="ResNet, 3 layers",edgecolors='black', s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer2, hs_resnet_std_loss_vec_layer2,marker="^", color="mediumorchid", label="ResNet, 3 layers", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer2, hs_resnet_std_loss_vec_layer2, color="mediumorchid", linestyle="dashed", linewidth=lineWidth2)
 
 #hs_dnn
 # DNN plots
 # hs_dnn, 1 layer
-plt.scatter(hs_dnn_num_neurons_vec_layer0, hs_dnn_std_loss_vec_layer0, marker="D", color="blue", label="DNN, 1 layer", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer0, hs_dnn_std_loss_vec_layer0, marker="D", color="blue", label="DNN, 1 layer", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer0, hs_dnn_std_loss_vec_layer0, color="blue", linestyle="dashed", linewidth=lineWidth2)
 
 # hs_dnn, 2 layers
-plt.scatter(hs_dnn_num_neurons_vec_layer1, hs_dnn_std_loss_vec_layer1, marker="D", color="darkblue", label="DNN, 2 layers", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer1, hs_dnn_std_loss_vec_layer1, marker="D", color="darkblue", label="DNN, 2 layers", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer1, hs_dnn_std_loss_vec_layer1, color="darkblue", linestyle="dashed", linewidth=lineWidth2)
 
 # hs_dnn, 3 layers
-plt.scatter(hs_dnn_num_neurons_vec_layer2, hs_dnn_std_loss_vec_layer2, marker="D", color="cornflowerblue", label="DNN, 3 layers", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer2, hs_dnn_std_loss_vec_layer2, marker="D", color="cornflowerblue", label="DNN, 3 layers", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer2, hs_dnn_std_loss_vec_layer2, color="cornflowerblue", linestyle="dashed", linewidth=lineWidth2)
 
 plt.yscale("log")  # If your errors span multiple orders of magnitude
+# Format y-axis to show values multiplied by 10^1
+from matplotlib.ticker import FuncFormatter
+def format_func(value, tick_number):
+    return f'{value*1e1:.1f}'
+
+plt.gca().yaxis.set_major_formatter(FuncFormatter(format_func))
+
+# Add the scale text inside the plot area
+plt.text(0.02, 1.05, r'$\times 10^{-1}$', transform=plt.gca().transAxes,
+         fontsize=textSize, verticalalignment='top')
+
 # Add labels, title and legend
 plt.xlabel('Neuron Number',fontsize=textSize)
 # plt.title(f'Heisenberg Spin System',fontsize=textSize)
 plt.xticks([15,60,105,150],labels=["15","60","105","150"],fontsize=xTickSize)
-plt.ylabel("Absolute error",fontsize=textSize)
-plt.legend(loc="best", fontsize=legend_fontsize-10,  # Smaller font
+plt.ylabel("RMSE",fontsize=textSize)
+plt.legend(loc="upper right", fontsize=legend_fontsize-10,  # Smaller font
           ncol=2,  # 2 columns instead of 3
           handlelength=0.8,      # Shorter marker lines
           handletextpad=0.2,     # Less space between marker and text
@@ -234,13 +245,16 @@ plt.legend(loc="best", fontsize=legend_fontsize-10,  # Smaller font
 plt.yticks(fontsize=yTickSize)
 plt.tick_params(axis='both', length=tick_length, width=tick_width)
 plt.tick_params(axis='y', which='minor', length=minor_tick_length, width=minor_tick_width)
+# Add minor ticks for x-axis at intervals of 15
+ax = plt.gca()
+ax.set_xticks(np.arange(0, 165, 15), minor=True)  # This creates ticks at 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150
 plt.grid(True, which="both", linestyle="--", alpha=0.5)
 # Improve layout and save
-plt.subplots_adjust(left=0.3, right=0.95, top=0.99, bottom=0.15)
+plt.subplots_adjust(left=0.3, right=0.95, top=0.90, bottom=0.15)  # Reduced from 0.93 to 0.90
 
 # plt.tight_layout()
-plt.savefig('hs_efnn_vs_all.png', dpi=300)
-plt.savefig('hs_efnn_vs_all.svg')
+plt.savefig('hs_efnn_vs_all.png', dpi=300,bbox_inches='tight')
+plt.savefig('hs_efnn_vs_all.svg',bbox_inches='tight')
 plt.close()
 
 
@@ -273,31 +287,31 @@ plt.scatter(hs_densenet_growth_rate_vec_layer2, hs_densenet_num_parameters_vec_l
 plt.plot(hs_densenet_growth_rate_vec_layer2, hs_densenet_num_parameters_vec_layer2, color="indianred", linestyle="dashed", linewidth=lineWidth2)
 
 # ResNet 1 layer
-plt.scatter(hs_resnet_num_neurons_vec_layer0, hs_resnet_num_parameters_vec_layer0,edgecolors='black', color="purple", marker="^", label="ResNet, 1 layer", s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer0, hs_resnet_num_parameters_vec_layer0, color="purple", marker="^", label="ResNet, 1 layer", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer0, hs_resnet_num_parameters_vec_layer0, color="purple", linestyle="dashed", linewidth=lineWidth2)
 
 # ResNet 2 layers
-plt.scatter(hs_resnet_num_neurons_vec_layer1, hs_resnet_num_parameters_vec_layer1,edgecolors='black', color="darkmagenta", marker="^", label="ResNet, 2 layers", s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer1, hs_resnet_num_parameters_vec_layer1, color="darkmagenta", marker="^", label="ResNet, 2 layers", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer1, hs_resnet_num_parameters_vec_layer1, color="darkmagenta", linestyle="dashed", linewidth=lineWidth2)
 
 # ResNet 3 layers
-plt.scatter(hs_resnet_num_neurons_vec_layer2, hs_resnet_num_parameters_vec_layer2,edgecolors='black', color="mediumorchid", marker="^", label="ResNet, 3 layers", s=marker_size2)
+plt.scatter(hs_resnet_num_neurons_vec_layer2, hs_resnet_num_parameters_vec_layer2, color="mediumorchid", marker="^", label="ResNet, 3 layers", s=marker_size2)
 plt.plot(hs_resnet_num_neurons_vec_layer2, hs_resnet_num_parameters_vec_layer2, color="mediumorchid", linestyle="dashed", linewidth=lineWidth2)
 
 # DNN 1 layer
-plt.scatter(hs_dnn_num_neurons_vec_layer0, hs_dnn_num_parameters_vec_layer0, marker="D", color="blue", label="DNN, 1 layer", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer0, hs_dnn_num_parameters_vec_layer0, marker="D", color="blue", label="DNN, 1 layer", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer0, hs_dnn_num_parameters_vec_layer0, color="blue", linestyle="dashed", linewidth=lineWidth2)
 
 # DNN 2 layers
-plt.scatter(hs_dnn_num_neurons_vec_layer1, hs_dnn_num_parameters_vec_layer1, marker="D", color="darkblue", label="DNN, 2 layers", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer1, hs_dnn_num_parameters_vec_layer1, marker="D", color="darkblue", label="DNN, 2 layers", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer1, hs_dnn_num_parameters_vec_layer1, color="darkblue", linestyle="dashed", linewidth=lineWidth2)
 
 # DNN 3 layers
-plt.scatter(hs_dnn_num_neurons_vec_layer2, hs_dnn_num_parameters_vec_layer2, marker="D", color="cornflowerblue", label="DNN, 3 layers", edgecolors='black', s=marker_size2)
+plt.scatter(hs_dnn_num_neurons_vec_layer2, hs_dnn_num_parameters_vec_layer2, marker="D", color="cornflowerblue", label="DNN, 3 layers", s=marker_size2)
 plt.plot(hs_dnn_num_neurons_vec_layer2, hs_dnn_num_parameters_vec_layer2, color="cornflowerblue", linestyle="dashed", linewidth=lineWidth2)
 
 # Add labels, title and legend
-plt.xlabel('Number of Neurons',fontsize=textSize)  # Fixed variable name
+plt.xlabel('Neuron Number',fontsize=textSize)  # Fixed variable name
 plt.ylabel('Number of Parameters',fontsize=textSize)
 # plt.title('Heisenberg Spin System',fontsize=title_size)
 plt.xticks([15, 60, 105, 150], labels=["15", "60", "105", "150"],fontsize=xTickSize)

@@ -7,3 +7,7 @@
 
 #hs_longer_attn (/home/adada/Documents/pyCode/deep_field_collection/hs_longer_attn)
 #hs_longer_attn has a different plot than the rest
+
+
+plot for dnn, efnn, resnet, densenet:
+    python plt_all.py
