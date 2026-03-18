@@ -10,9 +10,9 @@ mpl.rcParams['axes.linewidth'] = 2.5  # You already have this
 #for qt_efnn, qt_densenet, qt_resnet, qt_dnn
 #all layers
 
-C_vec=[10,15,20,25]
+C_vec=[1,3,5,7,9]
 N=10#plots for N=10
-set_epoch=500
+set_epoch=1000
 epoch_pattern=r"num_epochs=(\d+)"
 std_pattern=r"std_loss=([+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?)"
 
@@ -58,12 +58,12 @@ Y_train_avg=np.mean(Y_train_array)
 abs_Y_train_avg=np.abs(Y_train_avg)
 
 #load result from qt_efnn
-qt_efnn_layer_vec=np.array([0,1,2])
+qt_efnn_layer_vec=np.array([1,2,3])
 qt_efnn_rate=0.9
 qt_efnn_num_suffix=40000
 qt_efnn_num_epochs = set_epoch
 
-qt_efnn_baseDir="/home/adada/Documents/pyCode/deep_field/pbc_bn_double_quantum/"
+qt_efnn_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_efnn/"
 
 #qt_efnn, 1 layer
 qt_efnn_layer0=qt_efnn_layer_vec[0]
@@ -82,8 +82,8 @@ qt_efnn_relative_err_layer2=qt_efnn_std_loss_layer2_vec/abs_Y_train_avg
 
 
 #load result from qt_densenet
-qt_densenet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_densenet_pbc/"
-qt_densenet_layer_vec=np.array([2,3,4])
+qt_densenet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_densenet/"
+qt_densenet_layer_vec=np.array([1,2,3])
 qt_densenet_num_suffix=40000
 qt_densenet_num_epochs = set_epoch
 
@@ -103,7 +103,7 @@ qt_densenet_std_loss_layer2_vec=std_loss_all_one_epoch(qt_densenet_baseDir,qt_de
 qt_densenet_relative_err_layer2=qt_densenet_std_loss_layer2_vec/abs_Y_train_avg
 
 #load result from qt_resnet
-qt_resnet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_resnet_pbc/"
+qt_resnet_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_resnet/"
 qt_resnet_layer_vec=np.array([1,2,3])
 qt_resnet_num_suffix=40000
 qt_resnet_num_epochs = set_epoch
@@ -126,7 +126,7 @@ qt_resnet_relative_err_layer2=qt_resnet_std_loss_layer2_vec/abs_Y_train_avg
 
 
 #load result from qt_dnn
-qt_dnn_baseDir="/home/adada/Documents/pyCode/deep_field_collection/qt_dnn/"
+qt_dnn_baseDir="/home/adada/Documents/pyCode/deep_field_collection/final_sum_qt_dnn/"
 qt_dnn_layer_vec=np.array([1,2,3])
 qt_dnn_num_suffix=40000
 qt_dnn_num_epochs = set_epoch
@@ -233,7 +233,7 @@ plt.ylabel('Relative Error',fontsize=textSize)
 plt.tick_params(axis='both', length=tick_length, width=tick_width)
 plt.tick_params(axis='y', which='minor', length=minor_tick_length, width=minor_tick_width)
 
-plt.xticks([10,15,20,25],labels=["10","15","20","25"],fontsize=xTickSize)
+plt.xticks([1,3,5,7,9],labels=["1","3","5","7","9"],fontsize=xTickSize)
 plt.yticks(fontsize=yTickSize)
 plt.grid(True, which="both", linestyle="--", alpha=0.5)
 # legend = plt.legend(loc="best", fontsize=legend_fontsize-10,)
@@ -246,7 +246,18 @@ def format_func(value, tick_number):
     return f'{value*1e3:.1f}'
 
 plt.gca().yaxis.set_major_formatter(FuncFormatter(format_func))
+# Get the legend object
+legend = plt.legend(loc="center right", bbox_to_anchor=(0.98, 0.8), fontsize=legend_fontsize-10,
+          ncol=2,
+          handlelength=0.8,
+          handletextpad=0.2,
+          columnspacing=0.3,
+          borderpad=0.1,
+          labelspacing=0.15,
+          markerscale=0.6)
 
+# Make the legend more transparent
+legend.get_frame().set_alpha(0.7)  # Adjust alpha value (0=fully transparent, 1=opaque)
 # Add the scale text inside the plot area
 plt.text(0.02, 1.02, r'$\times 10^{-3}$', transform=plt.gca().transAxes,
          fontsize=textSize, verticalalignment='bottom')
@@ -255,74 +266,74 @@ plt.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C.png', dpi=300)
 plt.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C.svg')
 plt.close()
 
-# Create a figure for vertical legend
-fig_legend = plt.figure(figsize=(4, 8))  # Taller than wide
-
-# Create dummy lines for the legend
-legend_elements = [
-    plt.Line2D([0], [0], color='green', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 1 layer'),
-    plt.Line2D([0], [0], color='darkgreen', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 2 layers'),
-    plt.Line2D([0], [0], color='limegreen', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 3 layers'),
-    plt.Line2D([0], [0], color='red', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 1 layer'),
-    plt.Line2D([0], [0], color='darkred', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 2 layers'),
-    plt.Line2D([0], [0], color='indianred', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 3 layers'),
-    plt.Line2D([0], [0], color='purple', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 1 layer'),
-    plt.Line2D([0], [0], color='darkmagenta', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 2 layers'),
-    plt.Line2D([0], [0], color='mediumorchid', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 3 layers'),
-    plt.Line2D([0], [0], color='blue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 1 layer'),
-    plt.Line2D([0], [0], color='darkblue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 2 layers'),
-    plt.Line2D([0], [0], color='cornflowerblue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 3 layers'),
-    plt.Line2D([0], [0], color='black', linestyle='--', linewidth=lineWidth1, label='Effective model')
-]
-
-# Create an axes that fills the entire figure
-ax = fig_legend.add_subplot(111)
-ax.set_xlim(0, 1)
-ax.set_ylim(0, 1)
-
-# Create the legend positioned to fill the axes
-legend = ax.legend(handles=legend_elements,
-                   loc='center',
-                   bbox_to_anchor=(0.5, 0.5),
-                   ncol=1,  # Single column
-                   fontsize=legend_fontsize-5,
-                   frameon=True,
-                   fancybox=True,
-                   shadow=True,
-                   borderaxespad=0,
-                   columnspacing=1.0,
-                   handlelength=2.5,  # Adjust length of legend lines
-                   handletextpad=0.8)  # Adjust space between line and text
-
-# Make everything invisible except the legend
-ax.set_xticks([])
-ax.set_yticks([])
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['bottom'].set_visible(False)
-ax.spines['left'].set_visible(False)
-ax.set_facecolor('white')
-fig_legend.patch.set_facecolor('white')
-
-# Get the exact size of the legend
-fig_legend.canvas.draw()
-bbox = legend.get_window_extent()
-bbox = bbox.transformed(fig_legend.dpi_scale_trans.inverted())
-width, height = bbox.width, bbox.height
-
-# Resize the figure to match the legend size
-fig_legend.set_size_inches(width + 0.1, height + 0.1)  # Add small padding
-
-# Save with minimal padding
-fig_legend.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C_legend_vertical.png',
-                   dpi=300,
-                   bbox_inches='tight',
-                   pad_inches=0.02,
-                   facecolor='white',
-                   edgecolor='none')
-fig_legend.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C_legend_vertical.svg',
-                   bbox_inches='tight',
-                   pad_inches=0.02,
-                   facecolor='white',
-                   edgecolor='none')
-plt.close(fig_legend)
+# # Create a figure for vertical legend
+# fig_legend = plt.figure(figsize=(4, 8))  # Taller than wide
+#
+# # Create dummy lines for the legend
+# legend_elements = [
+#     plt.Line2D([0], [0], color='green', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 1 layer'),
+#     plt.Line2D([0], [0], color='darkgreen', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 2 layers'),
+#     plt.Line2D([0], [0], color='limegreen', marker='o', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='EFNN, 3 layers'),
+#     plt.Line2D([0], [0], color='red', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 1 layer'),
+#     plt.Line2D([0], [0], color='darkred', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 2 layers'),
+#     plt.Line2D([0], [0], color='indianred', marker='s', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DenseNet, 3 layers'),
+#     plt.Line2D([0], [0], color='purple', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 1 layer'),
+#     plt.Line2D([0], [0], color='darkmagenta', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 2 layers'),
+#     plt.Line2D([0], [0], color='mediumorchid', marker='^', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='ResNet, 3 layers'),
+#     plt.Line2D([0], [0], color='blue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 1 layer'),
+#     plt.Line2D([0], [0], color='darkblue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 2 layers'),
+#     plt.Line2D([0], [0], color='cornflowerblue', marker='D', linestyle='dashed', markersize=10, linewidth=lineWidth2, label='DNN, 3 layers'),
+#     plt.Line2D([0], [0], color='black', linestyle='--', linewidth=lineWidth1, label='Effective model')
+# ]
+#
+# # Create an axes that fills the entire figure
+# ax = fig_legend.add_subplot(111)
+# ax.set_xlim(0, 1)
+# ax.set_ylim(0, 1)
+#
+# # Create the legend positioned to fill the axes
+# legend = ax.legend(handles=legend_elements,
+#                    loc='center',
+#                    bbox_to_anchor=(0.5, 0.5),
+#                    ncol=1,  # Single column
+#                    fontsize=legend_fontsize-5,
+#                    frameon=True,
+#                    fancybox=True,
+#                    shadow=True,
+#                    borderaxespad=0,
+#                    columnspacing=1.0,
+#                    handlelength=2.5,  # Adjust length of legend lines
+#                    handletextpad=0.8)  # Adjust space between line and text
+#
+# # Make everything invisible except the legend
+# ax.set_xticks([])
+# ax.set_yticks([])
+# ax.spines['top'].set_visible(False)
+# ax.spines['right'].set_visible(False)
+# ax.spines['bottom'].set_visible(False)
+# ax.spines['left'].set_visible(False)
+# ax.set_facecolor('white')
+# fig_legend.patch.set_facecolor('white')
+#
+# # Get the exact size of the legend
+# fig_legend.canvas.draw()
+# bbox = legend.get_window_extent()
+# bbox = bbox.transformed(fig_legend.dpi_scale_trans.inverted())
+# width, height = bbox.width, bbox.height
+#
+# # Resize the figure to match the legend size
+# fig_legend.set_size_inches(width + 0.1, height + 0.1)  # Add small padding
+#
+# # Save with minimal padding
+# fig_legend.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C_legend_vertical.png',
+#                    dpi=300,
+#                    bbox_inches='tight',
+#                    pad_inches=0.02,
+#                    facecolor='white',
+#                    edgecolor='none')
+# fig_legend.savefig(f'epoch{set_epoch}_all_layers_qt_efnn_vs_all_C_legend_vertical.svg',
+#                    bbox_inches='tight',
+#                    pad_inches=0.02,
+#                    facecolor='white',
+#                    edgecolor='none')
+# plt.close(fig_legend)

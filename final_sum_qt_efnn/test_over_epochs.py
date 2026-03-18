@@ -45,8 +45,9 @@ def evaluate_model(model, test_loader, device):
 
 
 N=10
-C=9
+
 layer=3
+C=9
 step_num_after_S1=layer-1
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 in_model_dir=f"./out_model_data/N{N}/C{C}/layer{layer}/"
